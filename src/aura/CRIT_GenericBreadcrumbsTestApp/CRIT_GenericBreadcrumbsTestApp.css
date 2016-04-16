@@ -1,0 +1,5 @@
+.THIS .disabledLink 
+{
+   pointer-events: none;
+   cursor: default;
+}

@@ -1,0 +1,12 @@
+.THIS .disabledLink 
+{
+   pointer-events: none;
+   cursor: default;
+   color: #000000;
+}  
+
+
+.THIS .currentPage
+{
+	font-weight: 900;
+}
