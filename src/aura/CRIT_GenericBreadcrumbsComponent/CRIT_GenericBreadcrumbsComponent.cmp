@@ -2,36 +2,39 @@
 	<ltng:require styles="/resource/SLDS0122/assets/styles/salesforce-lightning-design-system-ltng.css"/>
     <aura:attribute name="navSequenceTitles" type="Object[]" default="[]"/><!-- objects here MUST HAVE 'title' attribute. Optional 'prohibitCrumbClick' attribute.  -->
 
-    <aura:attribute name="curCrumbTitle" type="String" default="hi hi hi hi hi"/><!-- curCrumbTitle is the card currently being shown. -->
+    <aura:attribute name="curCrumbTitle" type="String" default=""/><!-- curCrumbTitle is the card currently being shown. -->
 
     <!-- User configurable classes -->
-    <aura:attribute name="currentPageClass" type="String" default="hereItIs" />
+    <aura:attribute name="breadcrumbMenuClass" type="String" default="basic" />
+    <aura:attribute name="currentPageClass" type="String" default="" />
     <aura:attribute name="clickablePageClass" type="String" default="" />
     <aura:attribute name="disabledPageClass" type="String" default="" />
 
     <aura:registerEvent name="pickedBreadcrumb" type="c:CRIT_BreadcrumbSelectionEvent"/>
 
     
-    <div class="slds">
+    <div class="{! 'slds ' + v.breadcrumbMenuClass }" >
     	<nav role="navigation">
              <p id="bread-crumb-label" class="slds-assistive-text">You are here:</p>
               <ol class="slds-breadcrumb slds-list--horizontal" aria-labelledby="bread-crumb-label">
                 <aura:iteration items="{! v.navSequenceTitles }" var="aPage" >
                  	 <li class="slds-list__item slds-text-heading--label">
-                        <aura:if isTrue="{! !aPage.prohibitCrumbClick }">
+                        <aura:if isTrue="{! aPage.prohibitCrumbClick == false }">
                             <aura:if isTrue="{! aPage.title == v.curCrumbTitle }" >
-                                <a  onclick="{! c.handleClickedCrumb }" href="#" class="{! 'currentPage ' + v.currentPageClass }" title="{! aPage.title }">{! aPage.title }</a>
+                                <a  onclick="{! c.handleClickedCrumb }" href="#" class="{! ' disabledLink currentPage ' + v.currentPageClass }" title="{! aPage.title }">{! aPage.title }</a>
                             <aura:set attribute="else">
-                                <a class="{! v.clickablePageClass }" onclick="{! c.handleClickedCrumb }" href="#" title="{! aPage.title }">{! aPage.title }</a>
+                                <a class="{! v.clickablePageClass }"  onclick="{! c.handleClickedCrumb }" href="#" title="{! aPage.title }">{! aPage.title }</a>
                             </aura:set>
                             </aura:if>
                         <aura:set attribute="else">
-                             <a  onclick="{! c.handleClickedCrumb }" href="#"  class="{! 'disabledLink ' + v.disabledPageClass }"  title="{! aPage.title }">
-                               {! aPage.title }
-                             </a>
+                            <aura:if isTrue="{! aPage.title == v.curCrumbTitle }" >
+                                <a class="{! ' disabledLink currentPage ' + v.currentPageClass }" onclick="{! c.handleClickedCrumb }" href="#" title="{! aPage.title }">{! aPage.title }</a>
+                            <aura:set attribute="else">
+                                <a class="{! 'disabledLink ' + v.disabledPageClass }"  onclick="{! c.handleClickedCrumb }" href="#" title="{! aPage.title }">{! aPage.title }</a>
+                            </aura:set>
+                            </aura:if>
                         </aura:set>
                         </aura:if>
-
                     </li>
                  </aura:iteration>
              </ol>
