@@ -1,5 +1,5 @@
-.THIS .disabledLink 
+.THIS .ridiculousClass
 {
-   pointer-events: none;
-   cursor: default;
+	font-size: 1.2rem;
+	color: #ff00ff;
 }

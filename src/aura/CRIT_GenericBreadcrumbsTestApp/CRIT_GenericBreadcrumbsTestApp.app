@@ -1,6 +1,13 @@
 <aura:application >
-    <c:CRIT_GenericBreadcrumbsComponent aura:id="breadcrumbNav" navSequenceTitles="[{ 'title':'Assignee' }]" />
+    <aura:handler name="pickedBreadcrumb" event="c:CRIT_BreadcrumbSelectionEvent" action="{!c.handleClickedBreadcrumb }"/>
 
-    <ui:button label="click this" press="{! c.handleButtonPress }">Press!</ui:button>
+    <c:CRIT_GenericBreadcrumbsComponent 
+    		aura:id="breadcrumbNav" 
+    		navSequenceTitles="[{ 'title':'Assignee' }]" 
+    		currentPageClass="ridiculousClass" 
+    		curCrumbTitle="first page" />
+
+    <p>Test Update of Breadcrumb Source Sequence</p>
+    <ui:button label="Click!" press="{! c.handleButtonPress }"></ui:button>
 
 </aura:application>
